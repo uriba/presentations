@@ -1,0 +1,42 @@
+\begin{tikzpicture}
+  \colorlet{genext}{assimcol}
+  \colorlet{genmed}{blue}
+  \colorlet{geninit}{blue}
+
+  \newlength\imrad;
+  \newlength\ierad;
+  \newlength\esrad;
+  \newlength\emrad;
+  \newlength\eerad;
+  \pgfmathsetlength{\imrad}{\autocatalrad-\blendfrac*\arcwidth};
+  \pgfmathsetlength{\ierad}{\autocatalrad-0.5*\arcwidth};
+  \pgfmathsetlength{\esrad}{\autocatalrad+\arcwidth};
+  \pgfmathsetlength{\emrad}{\autocatalrad+\arcwidth-\blendfrac*\arcwidth};
+  \pgfmathsetlength{\eerad}{\autocatalrad+0.5*\arcwidth};
+
+  \preassim{\autocatalscale*\arcwidth}{-100}{-270}{\autocatalscale*\autocatalrad}{geninit};%width, startang, stopang, rad, col
+    \postassim{\autocatalscale*\arcwidth}{90}{-45}{\autocatalscale*\autocatalrad}{geninit}{2}
+    \assim{\autocatalscale*\arcwidth}{90}{-30}{\autocatalscale*\autocatalrad}{2}
+    \arrowhead{\autocatalscale*\arcwidth}{-45}{\autocatalscale*\autocatalrad}{geninit}
+
+    \node[align=center] at (-30:\autocatalscale*\autocatalrad*2.1) (int) {$\delta \cdot$Internal metabolite};
+    \node[align=center] at (-73:\autocatalscale*\autocatalrad*1.05) (int) {Internal\\metabolite};
+    \node[align=center] at (130:\autocatalscale*\autocatalrad*1.65) (ext) {Assimilated\\metabolite};
+    \iftoggle{poster}{
+    \node [above left=2mm and -18mm of ext,align=center] (eq1) {Internal\\metabolite};
+    \node [right=1mm of eq1] (eq2) {+};
+    \node [right=1mm of eq2,align=center] (eq3) {Assimilated\\metabolite};
+    \node [right=1mm of eq3] (eq4) {$\rightarrow (1+\delta)$};
+    \node [right=1mm of eq4,align=center] (eq5) {Internal\\ metabolite};
+        \node [rectangle,fill=autocatacyc!30,rounded corners=3pt,fit=(eq1) (eq5)] {};
+    \node [above left=2mm and -18mm of ext,align=center] (eq1) {Internal\\metabolite};
+    \node [right=1mm of eq1] (eq2) {+};
+    \node [right=1mm of eq2,align=center] (eq3) {Assimilated\\metabolite};
+    \node [right=1mm of eq3] (eq4) {$\rightarrow (1+\delta)$};
+    \node [right=1mm of eq4,align=center] (eq5) {Internal\\ metabolite};
+    }{
+    \node [rectangle,fill=autocatacyc!30,rounded corners=3pt] at (90:\autocatalscale*\autocatalrad+1.7cm) (eq) {Internal metabolite + Assimilated metabolite $\rightarrow (1+\delta)$ Internal metabolite};
+}
+
+\end{tikzpicture}
+

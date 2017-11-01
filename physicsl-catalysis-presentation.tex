@@ -1,0 +1,352 @@
+\documentclass[aspectratio=169]{beamer}
+\input{preamble.tex}
+
+\renewcommand{\footnoterule}{}
+\tikzset{
+  invisible/.style={opacity=0},
+  visible on/.style={alt={#1{}{ invisible}}},
+  alt/.code args={<#1>#2#3}{%
+    \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} 
+  },
+}
+
+
+\usepackage{adjustbox}
+\setbeamertemplate{footline}[frame number]
+
+\newcommand{\backupbegin}{
+  \newcounter{finalframe}
+    \setcounter{finalframe}{\value{framenumber}}
+}
+
+\newcommand{\backupend}{
+  \setcounter{framenumber}{\value{finalframe}}
+}
+
+\title{Investigating physical constraints underlying catalysis and their impact on metabolic systems}
+\author{Uri Barenholz}
+\institute{CRI Research Symposium}
+\date{October 11, 2017}
+\usepackage[absolute,overlay]{textpos}
+\newcommand\urltext{
+    \begin{textblock*}{\paperwidth}(0pt,\textheight)
+        \raggedright \small \url{https://git.io/vd2xO} \hspace{.5em}
+    \end{textblock*}
+}
+\begin{document}
+
+\frame{
+  \titlepage
+    \urltext
+}
+
+\frame{\frametitle{Once upon a time\ldots}
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+        \pgfimage{car.png}
+    \end{adjustbox}
+    \urltext
+}
+
+\frame{\frametitle{Research questions}
+\begin{itemize}
+    \item What is the physical limit for lowering the activation energy barrier of a given reaction
+      \pause
+    \item How is the affinity of an enzyme affected by the requirement to be selective
+  \end{itemize}
+    \urltext
+}
+
+\frame{\frametitle{Textbook illustration}
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+        \pgfimage{energyLandscapeLeninger.png}
+    \end{adjustbox}
+    \urltext
+}
+
+\frame{\frametitle{Modeling energy landscape modification in a classical system}
+\only<1>{
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+      \pgfimage{subsbody2.pdf}
+    \end{adjustbox}
+  }
+\only<2>{
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+      \pgfimage{subsbody3.pdf}
+    \end{adjustbox}
+  }
+ \only<3>{
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+      \pgfimage{subsbody4.pdf}
+    \end{adjustbox}
+  }
+ \only<4>{
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+      \pgfimage{subsbody5.pdf}
+    \end{adjustbox}
+  }
+    \urltext
+}
+
+\frame{\frametitle{Reaction energy landscape of model substrate}
+\begin{columns}
+    \begin{column}{0.5\textwidth}
+        \pgfimage[width=\textwidth]{subsbody5.pdf}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+        \pgfimage[width=\textwidth]{energylandscapemodificationmodel.pdf}
+    \end{column}
+\end{columns}
+    \urltext
+}
+
+\frame{\frametitle{Introducing a model catalyst}
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+      \only<1>{
+        \pgfimage[width=\textwidth]{subscatdist.pdf}
+      }
+      \only<2>{
+        \pgfimage[width=\textwidth]{subscatdistforce.pdf}
+      }
+     \end{adjustbox}
+    \urltext
+}
+
+\frame{\frametitle{Reaction energy landscape of bound substrate}
+\begin{columns}
+    \begin{column}{0.5\textwidth}
+        \pgfimage[width=\textwidth]{subscatforces.pdf}
+     \end{column}
+    \only<2>{
+    \begin{column}{0.5\textwidth}
+        \pgfimage[width=\textwidth]{energylandscapemodificationmodel2.pdf}
+      \end{column}
+    }
+\end{columns}
+    \urltext
+}
+
+\frame{\frametitle{The catalyst creates a bypass to the energy barrier at the transition state}
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+        \pgfimage{catlandscape.pdf}
+    \end{adjustbox}
+    \urltext
+}
+
+\frame{\frametitle{Subtracting the potential field at the transition state from the initial state produces an energy barrier reduction landscape}
+    \only<1-2>{
+\begin{columns}
+    \begin{column}{0.5\textwidth}
+      \pgfimage[width=\textwidth]{subsstartpot.pdf}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    \only<2>{
+        \pgfimage[width=\textwidth]{substranspot.pdf}
+    }
+    \end{column}
+\end{columns}
+}
+    \only<3>{
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+        \pgfimage{subsdiffpot.pdf}
+    \end{adjustbox}
+     }
+    \urltext
+}
+
+\frame{\frametitle{Subtracting the potential field at the transition state from the initial state produces an energy barrier reduction landscape}
+\begin{itemize}
+    \item The resulting function quantifies the barrier reduction when positioning a positive point charge at any coordinate in space
+      \pause
+    \item Placing charges at extremum points of this function achieves maximal barrier reduction
+  \end{itemize}
+    \urltext
+}
+
+
+\frame{\frametitle{Methodological approach for investigating catalytic constraints}
+\begin{itemize}
+      \pause
+     \item Crowd-sourcing platform
+      \begin{itemize}
+           \item Challenge existing assumptions
+           \item Reveal potential catalytic mechanisms
+      \end{itemize}
+      \pause
+     \item Handheld, functional models
+      \begin{itemize}
+       \item Demonstrate and communicate catalytic principles
+      \end{itemize}
+      \pause
+     \item Apply theoretical framework to molecular domain
+      \pause
+     \item Investigate metabolic network design implications
+      \begin{itemize}
+       \item Synthetic biology applications
+       \item Origins of life metabolism
+      \end{itemize}
+  \end{itemize}
+    \urltext
+}
+
+\frame{\frametitle{Does structural similarity limit affinity in metabolic networks?}
+\pause
+\vfill
+\vfill
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+        \pgfimage{babyToy.jpg}
+    \end{adjustbox}
+    \urltext
+}
+
+\frame{\frametitle{Does structural similarity limit affinity in metabolic networks?}
+\begin{itemize}
+  \item Most enzymes are substrate-specific
+    \pause
+   \item Structural similarity is used for drug discovery and promiscuous activity tests
+     \pause
+   \item Metabolic networks must contain structurally similar metabolites
+    \begin{itemize}
+         \item But can potentially reduce similarities at critical points
+     \end{itemize}
+     \pause
+     \item Numerous examples for specificity tradeoffs in the literature
+  \end{itemize}
+    \urltext
+}
+
+\frame{\frametitle{Why do we expect selectivity to decrease affinity?}
+    \only<1>{
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+        \pgfimage{twoshapes.pdf}
+      \end{adjustbox}}
+      \only<2>{
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+        \pgfimage{twoshapesslack.pdf}
+      \end{adjustbox}}
+     \urltext
+}
+
+
+\frame{\frametitle{Examples of specificity-affinity challenges}
+\begin{columns}
+    \begin{column}{0.5\textwidth}
+ \begin{itemize}
+    \only<1->{
+     \item RuBisCo
+      \begin{itemize}
+        \item \ce{CO2} versus \ce{O2}
+      \end{itemize}
+    }
+    \only<2->{
+     \item Tyrosine ammonia lyase
+      \begin{itemize}
+        \item \ce{Tyr} versus \ce{Phe}
+      \end{itemize}
+    }
+    \only<3->{
+    \item Bacterial DNA methyltransferase
+      \begin{itemize}
+        \item Relaxing sequence specificity accelerates rate
+      \end{itemize}
+    \item Bacterial hexose phosphate transporter
+    }
+       
+  \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    \only<1>{
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+        \pgfimage{co2o2.jpg}
+      \end{adjustbox}}
+    \only<2>{
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+        \pgfimage{tyrosinePhenylalenine.jpg}
+      \end{adjustbox}}
+      \end{column}
+\end{columns}
+    \urltext
+}
+
+\frame{\frametitle{Can we formulate a quantitative evaluation of the selectivity challenge?}
+\begin{itemize}
+     \item Given metabolites concentration data
+      \begin{itemize}
+       \item Identify challenging reactions
+       \item Quantify expected cost
+      \end{itemize}
+      \pause
+     \item Given reaction possibilities
+      \begin{itemize}
+       \item Find biases in metabolic network structure maximizing structural differences
+      \end{itemize}
+  \end{itemize}
+    \urltext
+}
+
+\frame{\frametitle{Methodological approach for investigating selectivity tradeoffs}
+\begin{itemize}
+     \item Impact on metabolites concentrations and enzymes
+   \begin{itemize}
+       \item BRENDA - identifying weak affinity enzymes
+       \item Promiscuous activity data from Sauer lab
+       \item Structural similarity metrics comparison with measured metabolites concentrations
+   \end{itemize}
+   \pause
+ \item Impact on network structure
+   \begin{itemize}
+     \item Project metabolic networks to chemical space
+     \item Implement selectivity in constraint based modeling of metabolic networks
+   \end{itemize}
+ \end{itemize}
+    \urltext
+}
+ 
+\frame{\frametitle{Summary}
+\begin{itemize}
+  \item Basic challenges of biological systems are rarely investigated theoretically
+     \item Transforming key problems to simplified models in accessible platforms can leverage innovation of wider audience and reveal novel principles
+     \item Recently available datasets allow evaluation of hypotheses
+     \item Mapping metabolic networks into the chemical space can highlight metabolic network motifs
+
+\end{itemize}
+Thank You!
+  \urltext
+}
+ 
+\backupbegin
+
+\frame{\frametitle{Work plan}
+    \begin{adjustbox}{max totalsize={\textwidth}{\textheight},center}
+        \pgfimage{gantt.pdf}
+    \end{adjustbox}
+    \urltext
+}
+
+\frame{\frametitle{Catalyst design must track the entire reaction pathway}
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+        \pgfimage{energylandscapemodificationmodelMax.pdf}
+    \end{adjustbox}
+    \urltext
+}
+
+\frame{\frametitle{References}
+\scriptsize{
+\begin{enumerate}
+  \item Cooper S, et al. (2010) Predicting protein structures with a multiplayer online game. Nature
+  \item Cao Y, et al. (2008) ChemmineR: a compound mining framework for R. Bioinformatics 
+  \item Reymond J-L (2015) The chemical space project. Acc Chem Res
+  \item Wang Y, et al. (2013) fmcsR: mismatch tolerant maximum common substructure searching in R. Bioinformatics
+  \item Bar-Even A, et al. (2015) The Moderately Efficient Enzyme: Futile Encounters and Enzyme Floppiness. Biochemistry
+  \item Alam MT, et al. (2017) The self-inhibitory nature of metabolic networks and its alleviation through compartmentalization. Nat Commun
+  \item Schomburg I, et al. (2004) BRENDA, the enzyme database: updates and major new developments. Nucleic Acids Res
+  \item Sévin DC, et al. (2017) Nontargeted in vitro metabolomics for high-throughput identification of novel enzymes in Escherichia coli. Nat Methods
+  \item Savir Y, et al. (2010) Cross-species analysis traces adaptation of Rubisco toward optimality in a low-dimensional landscape. PNAS
+  \item Tcherkez GGB, et al. (2006) Despite slow catalysis and confused substrate specificity, all ribulose bisphosphate carboxylases may be nearly perfectly optimized. PNAS
+  \item Danos V, et al. (2015) Rigid Geometric Constraints for Kappa Models. Electron Notes Theor Comput Sci
+\end{enumerate}}
+    \urltext
+}
+
+\backupend
+
+\end{document}

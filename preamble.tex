@@ -1,0 +1,162 @@
+\usepackage{color,amsmath,amssymb,graphicx,subcaption,geometry,mathtools,xfrac}
+%\usepackage{cite}
+\usepackage{mhchem}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{lineno}
+\pgfplotsset{compat=1.12}
+\usepackage{stackengine,ifthen}
+\usepackage{float}
+\usetikzlibrary{arrows,positioning,calc,arrows.meta,patterns,fit}
+
+\newtoggle{article}
+\newtoggle{poster}
+\newtoggle{eddpathway}
+\newtoggle{elifesubmission}
+\newtoggle{thesis}
+\togglefalse{elifesubmission}
+%\toggletrue{elifesubmission}
+
+\iftoggle{elifesubmission} {
+\usepackage{setspace}
+\linenumbers
+\doublespacing
+\newcommand{\beginsupplement}{%
+        \setcounter{table}{0}
+        \renewcommand{\thetable}{S\arabic{table}}%
+        \setcounter{figure}{0}
+        \renewcommand{\thefigure}{2-figure supplement \arabic{figure}}%
+    }
+}
+{
+\newcommand{\beginsupplement}{%
+        \setcounter{table}{0}
+        \renewcommand{\thetable}{S\arabic{table}}%
+        \setcounter{figure}{0}
+        \renewcommand{\thefigure}{S\arabic{figure}}%
+    }
+}
+
+
+\tikzset{>=Latex}
+\newcommand\influx{0.5}
+
+\newenvironment{customlegend}[1][]{
+  \begingroup
+  \csname pgfplots@init@cleared@structures\endcsname
+  \pgfplotsset{#1}
+}{
+  \csname pgfplots@createlegend\endcsname
+  \endgroup
+}
+
+\def\addlegendimage{\csname pgfplots@addlegendimage\endcsname}
+\setlength\abovecaptionskip{6pt}
+\providecommand{\abs}[1]{\lvert#1\rvert}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+
+\tikzset{>=latex}
+\tikzset{metaboliteStyle/.style={}}
+\definecolor{cyan}{RGB}{100,181,205}
+\definecolor{blue}{RGB}{76,114,176}
+\definecolor{green}{RGB}{85,168,104}
+\definecolor{magenta}{RGB}{129,114,178}
+\definecolor{yellow}{RGB}{204,185,116}
+\definecolor{red}{RGB}{196,78,82}
+\definecolor{graybg}{gray}{0.95}
+
+\colorlet{assimcol}{green}
+\colorlet{sumcolor}{yellow}
+
+\colorlet{inputcol}{green}
+\colorlet{branchout}{red}
+\colorlet{branchoutfl}{red!80}
+\colorlet{autocatacyc}{blue}
+\colorlet{autocatacycfl}{blue!80}
+\colorlet{autocataby}{cyan}
+
+\pdfpageattr{/Group <</S /Transparency /I true /CS /DeviceRGB>>} 
+
+\def\blendfrac{0.5}
+\def\deltaang{-155}
+\def\fromang{180}
+\def\inputang{-40}
+\def\protrude{7}
+\def\arcwidth{0.3cm}
+\def\highlightrad{0.2cm}
+\def\autocatalrad{1.5cm}
+\def\autocatalscale{1.5}
+
+  \newcommand{\colorgradarc}[6]{%width,startang,stopang,rad,startcol,stopcol
+    \pgfmathsetmacro\arcrange{#3-#2}
+    \pgfmathsetmacro\progsign{\arcrange>0 ? 1 : -1}
+    \pgfmathsetmacro\arcend{#3-1}
+    \foreach \i in {#2,...,\arcend} {
+     \pgfmathsetmacro\fracprog{\i/\arcrange-#2/\arcrange}
+     \pgfmathsetmacro\col{\fracprog*100}
+     \draw[color={#6!\col!#5},line width=#1] (\i-\progsign:#4)
+         arc[start angle=\i-\progsign, end angle=\i+1.1*\progsign,radius=#4];
+    }
+  }
+
+  \newcommand{\shadedarc}[7][\arcwidth]{%width,startang,stopang,startrad,stoprad,startcol,stopcol
+    \pgfmathsetmacro\arcrange{#3-#2}
+    \pgfmathsetmacro\radrange{#5-#4}
+    \pgfmathsetmacro\progsign{\arcrange>0 ? 1 : -1}
+    \foreach \i in {#2,...,\numexpr#3-1\relax} {
+      \pgfmathsetmacro\fracprog{\i/\arcrange-#2/\arcrange}
+      \pgfmathsetmacro\col{\fracprog*100}
+      \draw[color={#6!\col!#7},line width=#1] (\i-\progsign:#4+\radrange*\fracprog)
+  arc[start angle=\i-\progsign, end angle=\i+1.1*\progsign,radius=#4+\fracprog*\radrange];
+    }
+  }
+
+  \newcommand{\preassim}[5]{%width, startang, stopang, rad, col
+    \pgfmathsetmacro\halfarc{#3/2-#2/2}
+    \draw[color={autocatacyc},line width=#1] (#3:#4)
+        arc[start angle=#3, end angle=#3-\halfarc,radius=#4];
+    \pgfmathsetmacro\startshade{#2}
+    \pgfmathsetmacro\endshade{#3-\halfarc}
+    \colorgradarc{#1}{\startshade}{\endshade}{#4}{#5}{autocatacyc}
+  }
+
+  \newcommand{\postassim}[6]{%width,startang,stopang,rad,col,ratio
+    \pgfmathsetmacro\halfarc{#3/2-#2/2}
+    \pgfmathsetmacro\progsign{\halfarc>0 ? 1 : -1}
+    \pgfmathsetmacro\quarterarc{#3/4-#2/4}
+    \pgfmathsetmacro\endshade{#3-\halfarc}
+    \pgfmathsetmacro\startbranch{#3-\quarterarc}
+    \colorgradarc{#1*#6}{#2}{\endshade}{#4+#1*#6/2-#1/2}{autocatacyc}{#5}
+    \draw[color={#5},line width=#1*#6] (\endshade:#4+#1*#6/2-#1/2)
+        arc[start angle=\endshade, end angle=\startbranch+\progsign,radius=#4+#1*#6/2-#1/2];
+    \draw[color={#5},line width=#1] (\startbranch:#4)
+        arc[start angle=\startbranch, end angle=#3,radius=#4];
+
+    \pgfmathsetmacro\arcrange{-\quarterarc}
+    \pgfmathsetmacro\outstart{\startbranch+180}
+    \pgfmathsetmacro\progsign{\arcrange>0 ? 1 : -1}
+    \pgfmathsetmacro\arcend{\outstart+\arcrange-\progsign}
+    \pgfmathsetlength\arrowwidth{#1*#6-#1}
+    \begin{scope}[shift={(\startbranch:2*#4+#1*#6/2)}]
+      \draw[color={#5},line width=#1*#6-#1] (\outstart:#4)
+          arc[start angle=\outstart, end angle=\arcend,radius=#4];
+      \revarrowhead{\arrowwidth}{\arcend}{#4}{#5}
+    \end{scope}
+  }
+
+  \newcommand{\assim}[5]{%width,startang,deltaang,rad,ratio
+    \pgfmathsetmacro\assimstart{#2+180}
+    \begin{scope}[shift={(#2:2*#4+#1*#5/2)}]
+      \colorgradarc{#1*#5-#1}{\assimstart}{\assimstart+#3}{#4}{autocatacyc}{assimcol}
+    \end{scope}
+  }
+
+  \newcommand{\arrowhead}[4]{%width,startang,rad,col
+  \fill[#4] (#2+1:#3-#1/2) arc (#2+1:#2:#3-#1/2)
+       -- (#2-\protrude:#3) -- (#2:#3+#1/2) arc (#2:#2+1:#3+#1/2) -- cycle;
+     }
+  \newcommand{\revarrowhead}[4]{%width,startang,rad,col
+  \fill[#4] (#2-1:#3-#1/2) arc (#2-1:#2:#3-#1/2)
+       -- (#2+\protrude:#3) -- (#2:#3+#1/2) arc (#2:#2-1:#3+#1/2) -- cycle;
+     }
+

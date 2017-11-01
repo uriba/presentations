@@ -1,0 +1,609 @@
+\documentclass[aspectratio=169]{beamer}
+\input{preamble.tex}
+
+\renewcommand{\footnoterule}{}
+\tikzset{
+  invisible/.style={opacity=0},
+  visible on/.style={alt={#1{}{ invisible}}},
+  alt/.code args={<#1>#2#3}{%
+    \alt<#1>{\pgfkeysalso{#2}}{\pgfkeysalso{#3}} 
+  },
+}
+
+
+\usepackage{adjustbox}
+\togglefalse{article}
+\togglefalse{eddpathway}
+\togglefalse{elifesubmission}
+\setbeamertemplate{footline}[frame number]
+
+\newcommand{\backupbegin}{
+  \newcounter{finalframe}
+    \setcounter{finalframe}{\value{framenumber}}
+}
+
+\newcommand{\backupend}{
+  \setcounter{framenumber}{\value{finalframe}}
+}
+
+\title{The interplay between metabolic network topology and the kinetic parameters of enzymes, from autocatalytic cycles and beyond}
+\author{Uri Barenholz}
+\institute{Department of Plant \& Environmental Sciences\\
+Weizmann Institute of Science, Rehovot, Israel}
+\date{November 3, 2017}
+\usepackage[absolute,overlay]{textpos}
+\newcommand\urltext{
+    \begin{textblock*}{\paperwidth}(0pt,\textheight)
+        \raggedright \small \url{https://git.io/vSodL} \hspace{.5em}
+    \end{textblock*}
+}
+\begin{document}
+
+\input{varsdefs.tex}
+
+\frame{
+  \titlepage
+    \urltext
+}
+
+\frame{\frametitle{An autocatalytic cycle requires its internal metabolite to produce it}
+    \begin{adjustbox}{max totalsize={\textwidth}{\textheight},center}
+        \input{autocatalytic-cycle.tex}
+    \end{adjustbox}
+    %presentation link on github
+    % https://git.io/vSodL
+    \urltext
+}
+
+\frame{\frametitle{Why do we care about autocatalytic cycles?}
+\begin{itemize}
+    \item The lab implements the Calvin-Benson-Bassham cycle in \emph{E.coli}\footnote{Antonovsky et. al., Cell 2016}
+    \item Two enzymes were introduced
+    \item It didn't work
+    \item Can we understand why?
+\end{itemize}
+}
+
+\frame{\frametitle{Stable flux through an autocatalytic cycle constrains the kinetic parameters of its enzymes}
+    \begin{adjustbox}{max totalsize={\textwidth}{0.8\textheight},center}
+        \input{simple-cycle-analysis-figure.tex}
+    \end{adjustbox}
+    \urltext
+}
+
+\frame{\frametitle{Conclusions drawn from the simple model apply under various extensions}
+\begin{itemize}
+    \item Using bisubstrate reaction schemes for the autocatalytic reaction
+        \begin{itemize}
+            \item Critical lower concentration of the assimilated metabolite exists
+            \item Upper bound on the affinity of the branch reaction remains in most schemes
+        \end{itemize}
+        \pause
+    \item Assuming the autocatalytic reaction is reversible
+        \begin{itemize}
+            \item Relaxes the constraint on the ratio of maximal fluxes between the autocatalytic and the branch reaction
+        \end{itemize}
+        \pause
+    \item Assuming the branch reaction is reversible
+        \begin{itemize}
+            \item Depending on the consumption of the branch reaction product, either the branch reaction, or the reaction downstream of it must have limited affinity
+        \end{itemize}
+\end{itemize}
+    \urltext
+} 
+
+\frame{\frametitle{Directed evolution towards function of the CBB cycle required changes in kinetic parameters of main branch reactions }
+\begin{itemize}
+    \item 3 Directed evolution repeats evolved functioning CBB cycle
+    \item Single common mutation: The major branch reaction gene, PRS
+        \begin{itemize}
+            \item With other, different mutations in each strain
+        \end{itemize}
+    \item In all cases $\sfrac{K_{\text{cat}}}{K_M}$ of PRS decreased
+    \item Minimal changes required for CBB function include mutations in other major branch reactions
+    \end{itemize}
+    \urltext
+} 
+
+\frame{\frametitle{Why should you care about autocatalytic cycles?}
+\begin{itemize}
+    \item Key metabolic processes are autocatalytic
+    \begin{itemize}
+        \item In glycolysis ATP investment is required for the production of ATP
+    \end{itemize}
+    \item Systematic search reveals autocatalytic cycles are abundant in central carbon metabolism
+\end{itemize}
+    \urltext
+}
+
+\frame{\frametitle{Autocatalytic cycles are abundant in central carbon metabolism}
+    \begin{adjustbox}{max totalsize={\textwidth}{0.8\textheight},center}
+        \input{autocatalytic-samples.tex}
+    \end{adjustbox}
+    \urltext
+}
+
+\frame{\frametitle{Stability criteria of the simple model can be extended for complex cycles}
+    \begin{adjustbox}{max totalsize={\textwidth}{0.6\textheight},center}
+      \input{complex-autocatalytic-cycles.tex}
+    \end{adjustbox}
+    \pause
+    \begin{itemize}
+        \item At steady state: $\sum f_{b_i}=f_{a_n}$
+        \pause
+    \item Sufficient condition for stability is: $\exists_i \quad \beta_i \geq \alpha_i$
+        
+        where $\beta_i=\frac{df_{b_i}}{dX_i}\Big\rvert_{X_i^*}$ and $\alpha_i=\frac{df_{a_i}}{dX_i}\Big\rvert_{X_i^*}$
+    \end{itemize}
+    \urltext
+}
+
+\frame{\frametitle{Theoretical $\beta_i\geq\alpha_i$ constraint results in experimental prediction on reaction saturation level}
+    \begin{itemize}
+        \item Reaction saturation  is the ratio of the actual flux to the potential flux, given expression level and catalytic rate
+            \pause
+        \item For monotonically increasing, bounded, concave functions: saturation and derivative are inversely correlated
+            \pause
+        \item Therefore, $\beta_i\geq\alpha_i$ imply that branch reaction is less saturated than autocatalytic reaction
+    \end{itemize}
+    \urltext
+}
+
+\frame{\frametitle{Analysis of experimental fluxomics data\footnote{Gerosa et. al., Cell Systems 2015} and proteomics data\footnote{Schmidt et. al., Nature Biotechnology 2016} shows branch reactions are consistently less saturated than autocatalytic reactions}
+    \begin{adjustbox}{max totalsize={\textwidth}{0.69\textheight},center}
+      \input{experimental-fluxes.tex}
+    \end{adjustbox}
+}
+
+\frame{\frametitle{Conclusions}
+\begin{itemize}
+    \item Autocatalytic cycles play a major role in central carbon metabolism
+    \item Proper function of autocatalytic cycles depends on kinetic parameters of enzymes
+    \begin{itemize}
+        \item Limits affinity of branch reactions
+    \end{itemize}
+    \item In metabolic engineering of autocatalytic cycles, native kinetic parameters can prohibit function
+    \item Stability of autocatalytic cycles depends on under-saturation of branch reactions
+    \begin{itemize}
+        \item Excess expression of branch reactions enzymes is required
+    \end{itemize}
+   \item Fluxomics data approves sub-optimality constraints are maintained in-vivo
+\end{itemize}
+    \urltext
+}
+
+\frame{\frametitle{Future research questions}
+\begin{itemize}
+    \item What is the physical limit for lowering the activation energy barrier of a given reaction
+      \pause
+    \item How is the affinity of an enzyme affected by the requirement to be selective
+  \end{itemize}
+    \urltext
+}
+
+\frame{\frametitle{Textbook illustration}
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+        \pgfimage{energyLandscapeLeninger.png}
+    \end{adjustbox}
+    \urltext
+}
+
+\frame{\frametitle{Modeling energy landscape modification in a classical system}
+\only<1>{
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+      \pgfimage{subsbody2.pdf}
+    \end{adjustbox}
+  }
+\only<2>{
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+      \pgfimage{subsbody3.pdf}
+    \end{adjustbox}
+  }
+ \only<3>{
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+      \pgfimage{subsbody4.pdf}
+    \end{adjustbox}
+  }
+ \only<4>{
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+      \pgfimage{subsbody5.pdf}
+    \end{adjustbox}
+  }
+    \urltext
+}
+
+\frame{\frametitle{Reaction energy landscape of model substrate}
+\begin{columns}
+    \begin{column}{0.5\textwidth}
+        \pgfimage[width=\textwidth]{subsbody5.pdf}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+        \pgfimage[width=\textwidth]{energylandscapemodificationmodel.pdf}
+    \end{column}
+\end{columns}
+    \urltext
+}
+
+\frame{\frametitle{Introducing a model catalyst}
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+      \only<1>{
+        \pgfimage[width=\textwidth]{subscatdist.pdf}
+      }
+      \only<2>{
+        \pgfimage[width=\textwidth]{subscatdistforce.pdf}
+      }
+     \end{adjustbox}
+    \urltext
+}
+
+\frame{\frametitle{Reaction energy landscape of bound substrate}
+\begin{columns}
+    \begin{column}{0.5\textwidth}
+        \pgfimage[width=\textwidth]{subscatforces.pdf}
+     \end{column}
+    \only<2>{
+    \begin{column}{0.5\textwidth}
+        \pgfimage[width=\textwidth]{energylandscapemodificationmodel2.pdf}
+      \end{column}
+    }
+\end{columns}
+    \urltext
+}
+
+\frame{\frametitle{The catalyst creates a bypass to the energy barrier at the transition state}
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+        \pgfimage{catlandscape.pdf}
+    \end{adjustbox}
+    \urltext
+}
+
+\frame{\frametitle{Subtracting the potential field at the transition state from the initial state produces an energy barrier reduction landscape}
+    \only<1-2>{
+\begin{columns}
+    \begin{column}{0.5\textwidth}
+      \pgfimage[width=\textwidth]{subsstartpot.pdf}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    \only<2>{
+        \pgfimage[width=\textwidth]{substranspot.pdf}
+    }
+    \end{column}
+\end{columns}
+}
+    \only<3>{
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+        \pgfimage{subsdiffpot.pdf}
+    \end{adjustbox}
+     }
+    \urltext
+}
+
+\frame{\frametitle{Subtracting the potential field at the transition state from the initial state produces an energy barrier reduction landscape}
+\begin{itemize}
+    \item The resulting function quantifies the barrier reduction when positioning a positive point charge at any coordinate in space
+      \pause
+    \item Placing charges at extremum points of this function achieves maximal barrier reduction
+  \end{itemize}
+    \urltext
+}
+
+
+\frame{\frametitle{Methodological approach for investigating catalytic constraints}
+\begin{itemize}
+      \pause
+     \item Crowd-sourcing platform
+      \begin{itemize}
+           \item Challenge existing assumptions
+           \item Reveal potential catalytic mechanisms
+      \end{itemize}
+      \pause
+     \item Handheld, functional models
+      \begin{itemize}
+       \item Demonstrate and communicate catalytic principles
+      \end{itemize}
+      \pause
+     \item Apply theoretical framework to molecular domain
+      \pause
+     \item Investigate metabolic network design implications
+      \begin{itemize}
+       \item Synthetic biology applications
+       \item Origins of life metabolism
+      \end{itemize}
+  \end{itemize}
+    \urltext
+}
+
+
+\frame{\frametitle{Acknowledgments}
+\begin{columns}
+    \begin{column}{0.7\textwidth}
+        \pgfimage[width=\textwidth]{lab_2016.png}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+        \pgfimage[width=0.5\textwidth]{eladnoor.png}
+
+        \pgfimage[width=0.5\textwidth]{ed.jpg}
+
+        \pgfimage[width=0.9\textwidth]{aeri.png}
+
+        \pgfimage[width=0.9\textwidth]{erc.jpg}
+    \end{column}
+\end{columns}
+}
+
+\frame{\frametitle{Summary}
+\begin{itemize}
+  \item Basic challenges of biological systems are rarely investigated theoretically
+     \item Transforming key problems to simplified models in accessible platforms can leverage innovation of wider audience and reveal novel principles
+     \item Recently available datasets allow evaluation of hypotheses
+     \item Mapping metabolic networks into the chemical space can highlight metabolic network motifs
+
+\end{itemize}
+References (autocatalysis):
+\begin{itemize}
+    \item Carbon fixation in \emph{E.coli}: Antonovsky et. al., Cell 2016
+    \item Emergence of autocatalysis in metabolic networks: Riehl et. al., PLoS CB 2010
+    \item Algorithms for identifying autocatalytic cycles: Kun et. al., Genome Biology 2008
+    \item Calculating $k_\text{cat}$ from proteomics data: Davidi et. al., PNAS 2016
+    \item This work: Barenholz et. al., eLife 2017
+
+\end{itemize}
+Thank you!
+    \urltext
+}
+
+\backupbegin
+
+\frame{\frametitle{Supplementary figures and data}
+}
+
+\frame{\frametitle{Outlook}
+\begin{itemize}
+    \item Efficient algorithm for identification of autocatalytic cycles in large metabolic networks
+    \item Experimental exploration of different autocatalytic cycles function in-vivo
+    \item Possible other uses of passive control of metabolic fluxes due to kinetic parameters
+\end{itemize}
+References:
+\begin{itemize}
+    \item Carbon fixation in \emph{E.coli}: Antonovsky et. al., Cell 2016
+    \item Emergence of autocatalysis in metabolic networks: Riehl et. al., PLoS CB 2010
+    \item Algorithms for identifying autocatalytic cycles: Kun et. al., Genome Biology 2008
+    \item Calculating $k_\text{cat}$ from proteomics data: Davidi et. al., PNAS 2016
+    \item This work: Barenholz et. al., eLife 2017
+
+\end{itemize}
+    \urltext
+}
+
+\frame{\frametitle{Does structural similarity limit affinity in metabolic networks?}
+\pause
+\vfill
+\vfill
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+        \pgfimage{babyToy.jpg}
+    \end{adjustbox}
+    \urltext
+}
+
+\frame{\frametitle{Does structural similarity limit affinity in metabolic networks?}
+\begin{itemize}
+  \item Most enzymes are substrate-specific
+    \pause
+   \item Structural similarity is used for drug discovery and promiscuous activity tests
+     \pause
+   \item Metabolic networks must contain structurally similar metabolites
+    \begin{itemize}
+         \item But can potentially reduce similarities at critical points
+     \end{itemize}
+     \pause
+     \item Numerous examples for specificity tradeoffs in the literature
+  \end{itemize}
+    \urltext
+}
+
+\frame{\frametitle{Why do we expect selectivity to decrease affinity?}
+    \only<1>{
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+        \pgfimage{twoshapes.pdf}
+      \end{adjustbox}}
+      \only<2>{
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+        \pgfimage{twoshapesslack.pdf}
+      \end{adjustbox}}
+     \urltext
+}
+
+
+\frame{\frametitle{Examples of specificity-affinity challenges}
+\begin{columns}
+    \begin{column}{0.5\textwidth}
+ \begin{itemize}
+    \only<1->{
+     \item RuBisCo
+      \begin{itemize}
+        \item \ce{CO2} versus \ce{O2}
+      \end{itemize}
+    }
+    \only<2->{
+     \item Tyrosine ammonia lyase
+      \begin{itemize}
+        \item \ce{Tyr} versus \ce{Phe}
+      \end{itemize}
+    }
+    \only<3->{
+    \item Bacterial DNA methyltransferase
+      \begin{itemize}
+        \item Relaxing sequence specificity accelerates rate
+      \end{itemize}
+    \item Bacterial hexose phosphate transporter
+    }
+       
+  \end{itemize}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+    \only<1>{
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+        \pgfimage{co2o2.jpg}
+      \end{adjustbox}}
+    \only<2>{
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+        \pgfimage{tyrosinePhenylalenine.jpg}
+      \end{adjustbox}}
+      \end{column}
+\end{columns}
+    \urltext
+}
+
+\frame{\frametitle{Can we formulate a quantitative evaluation of the selectivity challenge?}
+\begin{itemize}
+     \item Given metabolites concentration data
+      \begin{itemize}
+       \item Identify challenging reactions
+       \item Quantify expected cost
+      \end{itemize}
+      \pause
+     \item Given reaction possibilities
+      \begin{itemize}
+       \item Find biases in metabolic network structure maximizing structural differences
+      \end{itemize}
+  \end{itemize}
+    \urltext
+}
+
+\frame{\frametitle{Methodological approach for investigating selectivity tradeoffs}
+\begin{itemize}
+     \item Impact on metabolites concentrations and enzymes
+   \begin{itemize}
+       \item BRENDA - identifying weak affinity enzymes
+       \item Promiscuous activity data from Sauer lab
+       \item Structural similarity metrics comparison with measured metabolites concentrations
+   \end{itemize}
+   \pause
+ \item Impact on network structure
+   \begin{itemize}
+     \item Project metabolic networks to chemical space
+     \item Implement selectivity in constraint based modeling of metabolic networks
+   \end{itemize}
+ \end{itemize}
+    \urltext
+}
+ 
+\frame{\frametitle{Fructose PTS disagreement results from missing data on alternative transport pathways}
+\begin{itemize}
+    \item All fructose was assumed to be transported as fbp
+    \item Experimental evidence shows other transport pathways are functioning\footnote{Kornberg, 1990}
+\end{itemize}
+}
+
+\frame{\frametitle{Allosteric regulation can accelerate convergence to steady state and increase robustness in fluctuating environment}
+\begin{itemize}
+    \item Convergence to steady state is faster when the differences between the cycle flux and the branch flux are larger
+    \begin{itemize}
+        \item Intermediate metabolites activate branch reactions and inhibit cycle reactions
+    \end{itemize}
+    \pause
+    \item Adaptation of steady state fluxes to nutrient availability is achieved by allosteric regulation of the assimilated metabolite
+    \begin{itemize}
+        \item The assimilated metabolite should activate branch reactions and inhibit cycle reactions
+    \end{itemize}
+    \pause
+    \item Adaptation of steady state fluxes to demand of cycle products is achieved by allosteric regulation of the branch products
+    \begin{itemize}
+        \item Branch products should activate branch reactions and inhibit cycle reactions
+    \end{itemize}
+    \pause
+    \item For the PTS using cycle, 11 out of 12 allosteric interactions agree with these predictions
+
+\end{itemize}
+    \urltext
+}
+
+\frame{\frametitle{Input flux increases the range of parameters for which stable fluxes exist}
+    \begin{adjustbox}{max totalsize={\textwidth}{0.8\textheight},center}
+        \input{autocatalytic-with-input.tex}
+    \end{adjustbox}
+}
+
+\frame{\frametitle{Additional autocatalytic cycles in central carbon metabolism}
+    \begin{adjustbox}{max totalsize={\textwidth}{0.8\textheight},center}
+        \input{extra-cycles-figure1.tex}
+    \end{adjustbox}
+}
+
+\frame{\frametitle{Additional autocatalytic cycles in central carbon metabolism}
+    \begin{adjustbox}{max totalsize={\textwidth}{0.8\textheight},center}
+        \input{extra-cycles-figure2.tex}
+    \end{adjustbox}
+}
+
+\frame{\frametitle{ATP autocatalysis in glycolysis}
+    \begin{adjustbox}{max totalsize={\textwidth}{0.8\textheight},center}
+        \input{atp-cycle.tex}
+    \end{adjustbox}
+}
+
+\frame{\frametitle{Supplementary equations}
+}
+
+\frame{\frametitle{Bisubstrate reaction equations}
+\begin{itemize} 
+    \item Substituted enzyme
+        \begin{equation*}
+              f=\frac{V_{\max}AX}{K_XA+K_{A}X+AX}
+        \end{equation*}
+    \item Random binding ternary complex
+        \begin{equation*}
+          f=\frac{V_{\max}AX}{K_{i,A}K_X+K_XA+K_AX+AX}
+        \end{equation*}
+    \item Ordered binding ternary complex, assimilated metabolite binding first
+        \begin{equation*}
+            f=\frac{V_{\max}AX}{K_{i,A}K_X+K_XA+AX}
+        \end{equation*}
+    \item Ordered binding ternary complex, internal metabolite binding first
+        \begin{equation*}
+            f=\frac{V_{\max}AX}{K_{i,X}K_A+K_AX+AX}
+        \end{equation*}
+\end{itemize}
+}
+
+\frame{\frametitle{Reversible reaction equation}
+   \begin{equation*}
+       f_b=\frac{V_{\max,b}(X-Y)}{K_X+X+\frac{K_X}{K_Y}Y}
+   \end{equation*}
+}
+
+\frame{\frametitle{Work plan}
+    \begin{adjustbox}{max totalsize={\textwidth}{\textheight},center}
+        \pgfimage{gantt.pdf}
+    \end{adjustbox}
+    \urltext
+}
+
+\frame{\frametitle{Catalyst design must track the entire reaction pathway}
+    \begin{adjustbox}{max totalsize={0.6\textwidth}{\textheight},center}
+        \pgfimage{energylandscapemodificationmodelMax.pdf}
+    \end{adjustbox}
+    \urltext
+}
+
+\frame{\frametitle{References}
+\scriptsize{
+\begin{enumerate}
+  \item Cooper S, et al. (2010) Predicting protein structures with a multiplayer online game. Nature
+  \item Cao Y, et al. (2008) ChemmineR: a compound mining framework for R. Bioinformatics 
+  \item Reymond J-L (2015) The chemical space project. Acc Chem Res
+  \item Wang Y, et al. (2013) fmcsR: mismatch tolerant maximum common substructure searching in R. Bioinformatics
+  \item Bar-Even A, et al. (2015) The Moderately Efficient Enzyme: Futile Encounters and Enzyme Floppiness. Biochemistry
+  \item Alam MT, et al. (2017) The self-inhibitory nature of metabolic networks and its alleviation through compartmentalization. Nat Commun
+  \item Schomburg I, et al. (2004) BRENDA, the enzyme database: updates and major new developments. Nucleic Acids Res
+  \item Sévin DC, et al. (2017) Nontargeted in vitro metabolomics for high-throughput identification of novel enzymes in Escherichia coli. Nat Methods
+  \item Savir Y, et al. (2010) Cross-species analysis traces adaptation of Rubisco toward optimality in a low-dimensional landscape. PNAS
+  \item Tcherkez GGB, et al. (2006) Despite slow catalysis and confused substrate specificity, all ribulose bisphosphate carboxylases may be nearly perfectly optimized. PNAS
+  \item Danos V, et al. (2015) Rigid Geometric Constraints for Kappa Models. Electron Notes Theor Comput Sci
+\end{enumerate}}
+    \urltext
+}
+
+\backupend
+
+\end{document}
